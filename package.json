@@ -121,7 +121,7 @@
   "homepage": "./",
   "build": {
     "appId": "xyz.960960.koodo",
-    "productName": "Koodo Reader",
+    "productName": "Koodo Reader P",
     "copyright": "Copyright (c) 2020-2025 ${author}",
     "files": [
       "build/**/*",
@@ -329,8 +329,8 @@
     },
     "nsis": {
       "artifactName": "${productName}-${version}-${arch}.${ext}",
-      "oneClick": true,
-      "allowToChangeInstallationDirectory": false,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
       "buildUniversalInstaller": false,
       "include": "assets/windows/installer.nsh"
     },

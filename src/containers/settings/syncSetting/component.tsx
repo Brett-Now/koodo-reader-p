@@ -105,12 +105,12 @@ class SyncSetting extends React.Component<SettingInfoProps, SettingInfoState> {
       );
       return;
     }
-    if (!this.props.isAuthed) {
-      toast(this.props.t("Please upgrade to Pro to use this feature"));
-      this.props.handleSetting(true);
-      this.props.handleSettingMode("account");
-      return;
-    }
+    // if (!this.props.isAuthed) {
+    //   toast(this.props.t("Please upgrade to Pro to use this feature"));
+    //   this.props.handleSetting(true);
+    //   this.props.handleSettingMode("account");
+    //   return;
+    // }
     if (
       !isElectron &&
       driveList.find((item) => item.value === targetDrive)?.needExtension
@@ -119,15 +119,15 @@ class SyncSetting extends React.Component<SettingInfoProps, SettingInfoState> {
         return;
       }
     }
-    if (
-      driveList.find((item) => item.value === targetDrive)?.isPro &&
-      !this.props.isAuthed
-    ) {
-      toast(this.props.t("Please upgrade to Pro to use this feature"));
-      this.props.handleSetting(true);
-      this.props.handleSettingMode("account");
-      return;
-    }
+    // if (
+    //   driveList.find((item) => item.value === targetDrive)?.isPro &&
+    //   !this.props.isAuthed
+    // ) {
+    //   toast(this.props.t("Please upgrade to Pro to use this feature"));
+    //   this.props.handleSetting(true);
+    //   this.props.handleSettingMode("account");
+    //   return;
+    // }
     this.props.handleSettingDrive(targetDrive);
     let settingDrive = targetDrive;
     if (settingDrive === "icloud" || settingDrive === "folder") {
@@ -246,12 +246,12 @@ class SyncSetting extends React.Component<SettingInfoProps, SettingInfoState> {
     if (!newValue) {
       return;
     }
-    if (!this.props.isAuthed) {
-      toast(this.props.t("Please upgrade to Pro to use this feature"));
-      this.props.handleSetting(true);
-      this.props.handleSettingMode("account");
-      return;
-    }
+    // if (!this.props.isAuthed) {
+    //   toast(this.props.t("Please upgrade to Pro to use this feature"));
+    //   this.props.handleSetting(true);
+    //   this.props.handleSettingMode("account");
+    //   return;
+    // }
 
     ConfigService.setItem("defaultSyncOption", newValue);
     if (ConfigService.getReaderConfig("isEnableKoodoSync") === "yes") {
@@ -303,15 +303,15 @@ class SyncSetting extends React.Component<SettingInfoProps, SettingInfoState> {
       );
       return;
     }
-    if (
-      driveList.find((item) => item.value === targetDrive)?.isPro &&
-      !this.props.isAuthed
-    ) {
-      toast(this.props.t("Please upgrade to Pro to use this feature"));
-      this.props.handleSetting(true);
-      this.props.handleSettingMode("account");
-      return;
-    }
+    // if (
+    //   driveList.find((item) => item.value === targetDrive)?.isPro &&
+    //   !this.props.isAuthed
+    // ) {
+    //   toast(this.props.t("Please upgrade to Pro to use this feature"));
+    //   this.props.handleSetting(true);
+    //   this.props.handleSettingMode("account");
+    //   return;
+    // }
     this.setState({
       backupDrive: mode === "backup" ? targetDrive : this.state.backupDrive,
       restoreDrive: mode === "restore" ? targetDrive : this.state.restoreDrive,
