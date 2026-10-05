@@ -85,7 +85,27 @@ export const onSyncCallback = async (service: string, authCode: string) => {
   }
   return res;
 };
+const localTokenServices = [
+  "webdav",
+  "s3compatible",
+  "docker",
+  "ftp",
+  "sftp",
+];
+
+const isLocalTokenService = (service: string) =>
+  localTokenServices.includes(service);
 export const encryptToken = async (service: string, config: any) => {
+  if (isLocalTokenService(service)) {
+    await TokenService.setToken(service + "_token", JSON.stringify(config));
+    return {
+      code: 200,
+      data: {
+        encrypted_token: JSON.stringify(config),
+      },
+    };
+  }
+  
   let syncToken = JSON.stringify(config);
   let thirdpartyRequest = await getThirdpartyRequest();
   let response = await thirdpartyRequest.encryptToken({
@@ -111,6 +131,24 @@ export const encryptToken = async (service: string, config: any) => {
   }
 };
 export const decryptToken = async (service: string) => {
+  if (isLocalTokenService(service)) {
+    const token = await TokenService.getToken(service + "_token");
+
+    if (!token || token === "{}") {
+      return {};
+    }
+
+    try {
+      return {
+        code: 200,
+        data: JSON.parse(token),
+      };
+    } catch (error) {
+      console.error("Failed to parse local sync token:", error);
+      return {};
+    }
+  }
+
   let thirdpartyRequest = await getThirdpartyRequest();
   let encryptedToken = await TokenService.getToken(service + "_token");
   if (!encryptedToken || encryptedToken === "{}") {
